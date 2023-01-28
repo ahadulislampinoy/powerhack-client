@@ -8,30 +8,32 @@ const Navbar = () => {
 
   const navbarLinks = (
     <>
-      <li className="transition duration-300 hover:text-rose-500">
+      <li className="transition duration-300 hover:text-red-500">
         <Link to="/home">Home</Link>
       </li>
-      <li className="transition duration-300 hover:text-rose-500">
+      <li className="transition duration-300 hover:text-red-500">
         <Link to="/billing">Billing</Link>
       </li>
-      <li className="transition duration-300 hover:text-rose-500">
+      <li className="transition duration-300 hover:text-red-500">
         <Link to="/login">Login</Link>
       </li>
-      <li className="border-2 border-rose-500 px-4 py-2 rounded">
+      <li className="border-2 border-red-500 px-4 py-2 rounded">
         <p>Paid Total: 00</p>
       </li>
     </>
   );
   return (
     <nav
-      className="w-full z-50 bg-gray-900/50 py-1 shadow sticky top-0 border-b border-gray-700"
+      className="w-full z-50 bg-gray-900/50 py-1 mb-6 lg:mb-0 shadow sticky top-0 border-b border-gray-700"
       style={{ backdropFilter: "blur(8px)" }}
     >
-      <div className="justify-between px-8 lg:px-14 py-1.5 mx-auto md:items-center lg:grid grid-cols-2">
+      <div className="justify-between px-8 lg:px-14 py-3 mx-auto md:items-center lg:grid grid-cols-2">
         <div className="flex items-center justify-between py-2">
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="" className="w-[13%] sm:w-[11%]" />
-            <h2 className="text-2xl font-semibold pt-3">Power Hack</h2>
+            <img src={logo} alt="" className="w-[15%] sm:w-[13%] pt-2" />
+            <h2 className="text-xl sm:text-2xl font-semibold pl-3">
+              Power Hack
+            </h2>
           </Link>
           <div className="lg:hidden">
             <button

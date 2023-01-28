@@ -48,7 +48,7 @@ const Home = () => {
                 <div class="p-4 sm:p-6 lg:p-8">
                   <div class="flex items-center">
                     <svg
-                      class="w-12 h-1w-12 text-red-600"
+                      class="w-10 h-10 sm:w-12 sm:h-12 text-red-600"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -59,7 +59,7 @@ const Home = () => {
                         clip-rule="evenodd"
                       />
                     </svg>
-                    <h2 class="font-bold text-white text-5xl ml-2.5">
+                    <h2 class="font-bold text-white text-3xl sm:text-4xl md:text-5xl ml-2.5">
                       Instant Power
                     </h2>
                   </div>

@@ -5,18 +5,18 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <footer>
-      <div class="flex flex-col md:flex-row justify-between items-center border-t border-b border-gray-700 gap-4 p-6">
-        <nav class="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 md:gap-6 text-lg">
+      <div className="flex flex-col md:flex-row justify-between items-center border-t border-b border-gray-700 gap-4 p-6">
+        <nav className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 md:gap-6 text-lg">
           <Link to="/">About us</Link>
           <Link to="/">Power</Link>
           <Link to="/">Supply</Link>
           <Link to="/">Distribution</Link>
         </nav>
 
-        <div class="flex gap-4">
+        <div className="flex gap-4">
           <Link to="/">
             <svg
-              class="w-5 h-5"
+              className="w-5 h-5"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -29,7 +29,7 @@ const Footer = () => {
 
           <Link to="/">
             <svg
-              class="w-5 h-5"
+              className="w-5 h-5"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ const Footer = () => {
 
           <Link to="/">
             <svg
-              class="w-5 h-5"
+              className="w-5 h-5"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -55,7 +55,7 @@ const Footer = () => {
 
           <Link to="/">
             <svg
-              class="w-5 h-5"
+              className="w-5 h-5"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div class="text-gray-100 text-center py-8">
+      <div className="text-gray-100 text-center py-8">
         © {year} - Power Hack. All rights reserved.
       </div>
     </footer>

@@ -1,8 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import SmallSpinner from "../../Components/SmallSpinner";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const { setAuth } = useContext(AuthContext);
+  const location = useLocation();
+  let navigate = useNavigate();
+  let from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
@@ -11,7 +21,35 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    setLoading(true);
+    const userData = {
+      email: data.email,
+      password: data.password,
+    };
+    axios
+      .post(`http://localhost:5000/api/login`, userData)
+      .then((res) => {
+        toast.success(res.data.message, {
+          style: {
+            background: "#363f4d",
+            color: "#fff",
+          },
+        });
+        localStorage.setItem("powerhack-token", res.data.token);
+        setAuth(true);
+        setLoading(false);
+        reset();
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message, {
+          style: {
+            background: "#363f4d",
+            color: "#fff",
+          },
+        });
+        setLoading(false);
+      });
   };
   return (
     <section className="min-h-screen flex flex-col items-center justify-center space-y-10 py-12 px-4 sm:px-6 lg:px-8">
@@ -30,7 +68,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <div className="max-w-md w-full mx-auto text-gray-50 font-medium bg-gray-700 shadow rounded-lg p-8 space-y-6">
+      <div className="max-w-md w-full mx-auto text-gray-50 font-medium bg-gray-700/60 shadow rounded-lg p-8 space-y-6">
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col">
             <label
@@ -40,7 +78,7 @@ const Login = () => {
               Email Address
             </label>
             <input
-              className="border border-gray-400 rounded-md bg-gray-700 px-3 py-2 "
+              className="border border-gray-400 rounded-md bg-gray-700/60 px-3 py-2 "
               type="email"
               name="email"
               id="email"
@@ -70,7 +108,7 @@ const Login = () => {
               Password
             </label>
             <input
-              className="border border-gray-400 rounded-md bg-gray-700 px-3 py-2"
+              className="border border-gray-400 rounded-md bg-gray-700/60 px-3 py-2"
               type="password"
               name="password"
               id="password"
@@ -82,11 +120,8 @@ const Login = () => {
             )}
           </div>
           <div>
-            {/* {authError && (
-              <p className="text-red-500 my-1">{authError.message}</p>
-            )} */}
             <button className="w-full bg-gradient-to-r from-rose-800 to-rose-600 text-gray-50 rounded-md p-2">
-              {/* {loading ? <SmallSpinner /> : "Login"} */} Login
+              {loading ? <SmallSpinner /> : "Login"}
             </button>
           </div>
         </form>

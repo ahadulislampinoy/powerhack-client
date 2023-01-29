@@ -1,10 +1,17 @@
 import { Transition } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../Assets/logo.png";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+  const { auth, setAuth } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem("powerhack-token");
+    setAuth(false);
+  };
 
   const navbarLinks = (
     <>
@@ -16,25 +23,40 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li className="transition duration-300 hover:text-red-500">
-        <NavLink
-          className={({ isActive }) => (isActive ? "text-red-500" : undefined)}
-          to="/billing"
-        >
-          Billing
-        </NavLink>
-      </li>
-      <li className="transition duration-300 hover:text-red-500">
-        <NavLink
-          className={({ isActive }) => (isActive ? "text-red-500" : undefined)}
-          to="/login"
-        >
-          Login
-        </NavLink>
-      </li>
-      <li className="border-2 border-red-500 px-4 py-2 rounded">
-        <p>Paid Total: 00</p>
-      </li>
+
+      {auth ? (
+        <>
+          <li className="transition duration-300 hover:text-red-500">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "text-red-500" : undefined
+              }
+              to="/billing"
+            >
+              Billing
+            </NavLink>
+          </li>
+          <li className="transition duration-300 hover:text-red-500">
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        </>
+      ) : (
+        <li className="transition duration-300 hover:text-red-500">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-red-500" : undefined
+            }
+            to="/login"
+          >
+            Login
+          </NavLink>
+        </li>
+      )}
+      {auth && (
+        <li className="border-2 border-red-500 px-4 py-2 rounded">
+          <p>Paid Total: 00</p>
+        </li>
+      )}
     </>
   );
   return (

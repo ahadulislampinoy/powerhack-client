@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../Assets/logo.png";
 
 const Navbar = () => {
@@ -9,13 +9,28 @@ const Navbar = () => {
   const navbarLinks = (
     <>
       <li className="transition duration-300 hover:text-red-500">
-        <Link to="/home">Home</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? "text-red-500" : undefined)}
+          to="/home"
+        >
+          Home
+        </NavLink>
       </li>
       <li className="transition duration-300 hover:text-red-500">
-        <Link to="/billing">Billing</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? "text-red-500" : undefined)}
+          to="/billing"
+        >
+          Billing
+        </NavLink>
       </li>
       <li className="transition duration-300 hover:text-red-500">
-        <Link to="/login">Login</Link>
+        <NavLink
+          className={({ isActive }) => (isActive ? "text-red-500" : undefined)}
+          to="/login"
+        >
+          Login
+        </NavLink>
       </li>
       <li className="border-2 border-red-500 px-4 py-2 rounded">
         <p>Paid Total: 00</p>

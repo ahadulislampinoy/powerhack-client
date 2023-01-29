@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
   return (
-    <div className="grid h-screen px-4 bg-gray-900 place-content-center">
+    <section className="grid h-screen px-4 bg-gray-900 place-content-center">
       <div className="text-center">
         <h1 className="font-black text-gray-200 text-9xl">404</h1>
 
@@ -20,7 +20,7 @@ const ErrorPage = () => {
           Go Back Home
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

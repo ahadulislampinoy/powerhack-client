@@ -5,7 +5,7 @@ import powerImg from "../../Assets/power-distrubution.jpg";
 
 const Home = () => {
   return (
-    <div>
+    <section>
       <div class="relative">
         <section class="overflow-hidden">
           <div class="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[800px]">
@@ -69,7 +69,7 @@ const Home = () => {
           </div>
         </section>
       </div>
-    </div>
+    </section>
   );
 };
 

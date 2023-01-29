@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("powerhack-token");
     if (token) {
       axios
-        .post(`https://powerhack-server.vercel.app/api/userData`, { token })
+        .post(`http://localhost:5000/api/userData`, { token })
         .then((res) => {
           setUser(res.data);
           setAuth(true);

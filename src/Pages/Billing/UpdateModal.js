@@ -3,10 +3,15 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import SmallSpinner from "../../Components/SmallSpinner";
 
-const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
+const UpdateModal = ({
+  updateModalOpen,
+  closeModal,
+  setUpdateModalOpen,
+  selectedBilling,
+}) => {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -17,7 +22,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    const billingData = {
+    const newBillingData = {
       name: data.name,
       email: data.email,
       phone: data.phone,
@@ -25,7 +30,10 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
       time: new Date().toLocaleString(),
     };
     axios
-      .post(`http://localhost:5000/api/add-billing`, billingData)
+      .patch(
+        `http://localhost:5000/api/update-billing/${selectedBilling._id}`,
+        newBillingData
+      )
       .then((res) => {
         toast.success(res.data.message, {
           style: {
@@ -35,11 +43,12 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
         });
         reset();
         setLoading(false);
-        setAddNewModalOpen(false);
+        setUpdateModalOpen(false);
+        window.location.reload();
       });
   };
   return (
-    <Transition appear show={addNewModalOpen} as={Fragment}>
+    <Transition appear show={updateModalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -69,7 +78,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
                   as="h3"
                   className="flex justify-between text-lg font-medium leading-6 text-gray-50 capitalize"
                 >
-                  <span>Add new billing</span>
+                  <span>Update billing</span>
                   <span onClick={closeModal}>
                     <XMarkIcon className="h-5 w-5 text-gray-50 cursor-pointer inline-block" />
                   </span>
@@ -88,6 +97,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
                         type="text"
                         name="name"
                         id="name"
+                        defaultValue={selectedBilling?.name}
                         placeholder="Enter your Full Name"
                         {...register("name", {
                           required: true,
@@ -118,6 +128,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
                         type="email"
                         name="email"
                         id="email"
+                        defaultValue={selectedBilling?.email}
                         placeholder="Enter your Email Address"
                         {...register("email", {
                           required: true,
@@ -148,6 +159,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
                         type="tel"
                         name="phone"
                         id="phone"
+                        defaultValue={selectedBilling?.phone}
                         placeholder="Enter your Phone Number"
                         {...register("phone", {
                           required: true,
@@ -178,6 +190,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
                         type="number"
                         name="amount"
                         id="amount"
+                        defaultValue={selectedBilling?.amount}
                         placeholder="Enter your payable amount"
                         {...register("amount", {
                           required: true,
@@ -197,7 +210,7 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
                     </div>
                     <div>
                       <button className="w-full bg-gradient-to-r from-rose-800 to-rose-600 text-gray-50 rounded-md p-2">
-                        {loading ? <SmallSpinner /> : "Add Billing"}
+                        {loading ? <SmallSpinner /> : "Update Billing"}
                       </button>
                     </div>
                   </form>
@@ -211,4 +224,4 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
   );
 };
 
-export default AddNewModal;
+export default UpdateModal;

@@ -25,7 +25,7 @@ const Register = () => {
       password: data.password,
     };
     axios
-      .post(`https://powerhack-server.vercel.app/api/registration`, userData)
+      .post(`http://localhost:5000/api/registration`, userData)
       .then((res) => {
         toast.success(res.data.message, {
           style: {

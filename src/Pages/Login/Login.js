@@ -27,7 +27,7 @@ const Login = () => {
       password: data.password,
     };
     axios
-      .post(`https://powerhack-server.vercel.app/api/login`, userData)
+      .post(`http://localhost:5000/api/login`, userData)
       .then((res) => {
         toast.success(res.data.message, {
           style: {

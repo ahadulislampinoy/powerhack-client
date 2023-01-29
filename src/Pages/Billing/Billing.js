@@ -3,14 +3,18 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { AuthContext } from "../../Context/AuthProvider";
+import AddNewModal from "./AddNewModal";
 import "./Billing.css";
 
 const Billing = () => {
   const { auth } = useContext(AuthContext);
-
+  let [addNewModalOpen, setAddNewModalOpen] = useState(false);
+  const closeModal = () => {
+    setAddNewModalOpen(false);
+  };
   return (
     <section className="sm:mt-8 min-h-screen bg-gray-900 px-4 sm:px-6 md:px-10">
       <div className="flex w-full justify-center">
@@ -44,7 +48,12 @@ const Billing = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <button className="bg-gradient-to-r from-red-600 to-red-800 text-gray-100 px-4 py-2 rounded-full font-semibold flex justify-center items-center sm:block">
+              <button
+                onClick={() => {
+                  setAddNewModalOpen(true);
+                }}
+                className="bg-gradient-to-r from-red-600 to-red-800 text-gray-100 px-4 py-2 rounded-full font-semibold flex justify-center items-center sm:block"
+              >
                 Add New
                 <PlusCircleIcon className="h-6 w-6 inline-block ml-2 text-gray-50" />
               </button>
@@ -90,6 +99,11 @@ const Billing = () => {
                   </div>
                 </td>
               </tr>
+              <AddNewModal
+                addNewModalOpen={addNewModalOpen}
+                setAddNewModalOpen={setAddNewModalOpen}
+                closeModal={closeModal}
+              />
             </tbody>
           </table>
         </div>

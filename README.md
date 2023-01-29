@@ -9,6 +9,7 @@ Hosted in Vercel -> [Power Hack](https://powerrhackk.vercel.app/)
 ### Extra Addons
 
 - 404 Error Page
+- Advanced form validation
 - Responsive
 - Easy to navigate
 

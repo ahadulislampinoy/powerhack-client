@@ -3,6 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
+import SmallSpinner from "../../Components/SmallSpinner";
 
 const DeleteModal = ({
   deleteModalOpen,
@@ -15,7 +16,14 @@ const DeleteModal = ({
   const handleDelete = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5000/api/delete-billing/${selectedBilling._id}`)
+      .delete(
+        `http://localhost:5000/api/delete-billing/${selectedBilling._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("powerhack-token")}`,
+          },
+        }
+      )
       .then((res) => {
         toast.success(res.data.message, {
           style: {
@@ -25,6 +33,15 @@ const DeleteModal = ({
         });
         setLoading(false);
         setDeleteModalOpen(false);
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          style: {
+            background: "#363f4d",
+            color: "#fff",
+          },
+        });
+        setLoading(false);
       });
   };
   return (
@@ -69,7 +86,7 @@ const DeleteModal = ({
                     type="button"
                     className="py-2 px-4 bg-red-600 hover:bg-red-700 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-md rounded-lg "
                   >
-                    Delete
+                    {loading ? <SmallSpinner /> : "Delete"}
                   </button>
                 </div>
               </Dialog.Panel>

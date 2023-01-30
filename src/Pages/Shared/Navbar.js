@@ -6,7 +6,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, entirePaidTotal } = useContext(AuthContext);
 
   const handleLogout = () => {
     localStorage.removeItem("powerhack-token");
@@ -54,7 +54,7 @@ const Navbar = () => {
       )}
       {auth && (
         <li className="border-2 border-red-500 px-4 py-2 rounded">
-          <p>Paid Total: 00</p>
+          <p>Paid Total: {entirePaidTotal.totalAmount || 0}</p>
         </li>
       )}
     </>

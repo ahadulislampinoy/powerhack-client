@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,10 +8,14 @@ import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const location = useLocation();
   let navigate = useNavigate();
   let from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    auth && navigate(from, { replace: true });
+  }, [auth, from, navigate]);
 
   const {
     register,
@@ -39,7 +43,6 @@ const Login = () => {
         setAuth(true);
         setLoading(false);
         reset();
-        navigate(from, { replace: true });
       })
       .catch((err) => {
         toast.error(err.response.data.message, {

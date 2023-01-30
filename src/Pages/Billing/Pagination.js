@@ -35,7 +35,11 @@ const Pagination = ({ count, setCurrentPage, currentPage }) => {
                 key={i}
                 onClick={() => setCurrentPage(number)}
                 aria-current="page"
-                className="relative z-10 inline-flex items-center border border-gray-50 bg-gray-500/80 px-4 py-2 text-sm font-medium text-gray-50 focus:z-20"
+                className={
+                  currentPage === number
+                    ? "relative z-10 inline-flex items-center border border-gray-50 bg-red-500/80 px-4 py-2 text-sm font-medium text-gray-50 focus:z-20"
+                    : "relative z-10 inline-flex items-center border border-gray-50 bg-gray-500/80 px-4 py-2 text-sm font-medium text-gray-50 focus:z-20"
+                }
               >
                 {number}
               </button>

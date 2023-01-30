@@ -1,13 +1,21 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import SmallSpinner from "../../Components/SmallSpinner";
+import { AuthContext } from "../../Context/AuthProvider";
 
-const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
+const AddNewModal = ({
+  addNewModalOpen,
+  closeModal,
+  setAddNewModalOpen,
+  setAddNewLoading,
+}) => {
+  const { user, setPaidTotal } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -16,16 +24,23 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
   } = useForm();
 
   const onSubmit = (data) => {
+    setAddNewLoading(true);
     setLoading(true);
+    setPaidTotal(data?.amount);
     const billingData = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      amount: data.amount,
+      name: data?.name,
+      email: data?.email,
+      addedByUserEmail: user?.email,
+      phone: data?.phone,
+      amount: data?.amount,
       time: new Date().toLocaleString(),
     };
     axios
-      .post(`http://localhost:5000/api/add-billing`, billingData)
+      .post(`http://localhost:5000/api/add-billing`, billingData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("powerhack-token")}`,
+        },
+      })
       .then((res) => {
         toast.success(res.data.message, {
           style: {
@@ -36,6 +51,17 @@ const AddNewModal = ({ addNewModalOpen, closeModal, setAddNewModalOpen }) => {
         reset();
         setLoading(false);
         setAddNewModalOpen(false);
+        setAddNewLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          style: {
+            background: "#363f4d",
+            color: "#fff",
+          },
+        });
+        setLoading(false);
+        setAddNewLoading(false);
       });
   };
   return (

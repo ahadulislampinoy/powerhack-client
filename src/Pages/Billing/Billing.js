@@ -5,6 +5,7 @@ import {
 } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import SmallSpinner from "../../Components/SmallSpinner";
 import AddNewModal from "./AddNewModal";
 import "./Billing.css";
 import DeleteModal from "./DeleteModal";
@@ -13,19 +14,19 @@ import UpdateModal from "./UpdateModal";
 
 const Billing = () => {
   const [billings, setBillings] = useState([]);
-  const [selectedBilling, setSelectedBilling] = useState(null);
+  const [selectedBilling, setSelectedBilling] = useState({});
   let [addNewModalOpen, setAddNewModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   let [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [addNewLoading, setAddNewLoading] = useState(false);
 
   const closeModal = () => {
     setAddNewModalOpen(false);
     setDeleteModalOpen(false);
-    setUpdateModalOpen(false);
-    window.location.reload();
+    // setUpdateModalOpen(false);
   };
 
   useEffect(() => {
@@ -35,8 +36,7 @@ const Billing = () => {
         setBillings(res.data.totalBillings);
         setCount(res.data.count);
       });
-  }, [currentPage, addNewModalOpen]);
-  console.log(currentPage, "billings");
+  }, [currentPage, addNewModalOpen, deleteModalOpen, updateModalOpen]);
 
   const filteredBillings = billings.filter((billing) => {
     return (
@@ -53,7 +53,7 @@ const Billing = () => {
           <h1 className="text-3xl w-full text-gray-100 font-bold mb-6">
             Billings
           </h1>
-          <div className="flex items-center justify-between mt-4 space-x-2 ">
+          <div className="sm:flex items-center justify-between mt-4 sm:space-x-2">
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <input
@@ -79,7 +79,7 @@ const Billing = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center mt-4 sm:mt-0 space-x-4">
               <button
                 onClick={() => {
                   setAddNewModalOpen(true);
@@ -104,13 +104,20 @@ const Billing = () => {
             </thead>
             <tbody>
               {!filteredBillings ? (
-                <div>No Billing Found</div>
+                <div>
+                  <h1 className="text-lg text-red-500 font-bold">
+                    {" "}
+                    -- No Billing Found
+                  </h1>
+                </div>
               ) : (
                 filteredBillings.map((billing) => (
                   <tr key={billing?._id} className="bg-gray-800 text-gray-50">
-                    <td className="py-4 px-8">{billing?._id}</td>
+                    <td className="py-4 px-8">
+                      {addNewLoading ? <SmallSpinner /> : billing?._id}
+                    </td>
                     <td className="py-4 px-8">{billing?.name}</td>
-                    <td className="py-4 px-8">{billing?.name}</td>
+                    <td className="py-4 px-8">{billing?.email}</td>
                     <td className="py-4 px-8">{billing?.phone}</td>
                     <td className="py-4 px-8">{billing?.amount}</td>
                     <td className="py-4 px-8">
@@ -154,12 +161,14 @@ const Billing = () => {
                 addNewModalOpen={addNewModalOpen}
                 setAddNewModalOpen={setAddNewModalOpen}
                 closeModal={closeModal}
+                setAddNewLoading={setAddNewLoading}
               />
               <UpdateModal
                 updateModalOpen={updateModalOpen}
                 setUpdateModalOpen={setUpdateModalOpen}
                 closeModal={closeModal}
                 selectedBilling={selectedBilling}
+                setSelectedBilling={setSelectedBilling}
               />
               <DeleteModal
                 deleteModalOpen={deleteModalOpen}

@@ -36,11 +36,15 @@ const AddNewModal = ({
       time: new Date().toLocaleString(),
     };
     axios
-      .post(`http://localhost:5000/api/add-billing`, billingData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("powerhack-token")}`,
-        },
-      })
+      .post(
+        `https://powerhack-server.vercel.app/api/add-billing`,
+        billingData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("powerhack-token")}`,
+          },
+        }
+      )
       .then((res) => {
         toast.success(res.data.message, {
           style: {

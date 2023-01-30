@@ -17,7 +17,7 @@ const DeleteModal = ({
     setLoading(true);
     axios
       .delete(
-        `http://localhost:5000/api/delete-billing/${selectedBilling._id}`,
+        `https://powerhack-server.vercel.app/api/delete-billing/${selectedBilling._id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("powerhack-token")}`,

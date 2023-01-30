@@ -49,7 +49,7 @@ const UpdateModal = ({
     };
     axios
       .patch(
-        `http://localhost:5000/api/update-billing/${selectedBilling._id}`,
+        `https://powerhack-server.vercel.app/api/update-billing/${selectedBilling._id}`,
         newBillingData,
         {
           headers: {

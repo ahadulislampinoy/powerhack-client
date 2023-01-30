@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
 
     if (token) {
       axios
-        .post(`http://localhost:5000/api/userData`, { token })
+        .post(`https://powerhack-server.vercel.app/api/userData`, { token })
         .then((res) => {
           setUser(res.data);
           setAuth(true);
@@ -30,9 +30,11 @@ const AuthProvider = ({ children }) => {
   }, [loading, auth]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/paid-total`).then((res) => {
-      setEntirePaidTotal(res.data);
-    });
+    axios
+      .get(`https://powerhack-server.vercel.app/api/paid-total`)
+      .then((res) => {
+        setEntirePaidTotal(res.data);
+      });
   }, [user, paidTotal]);
 
   const authInfo = {

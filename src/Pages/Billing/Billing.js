@@ -31,7 +31,9 @@ const Billing = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/billing-list?page=${currentPage}`)
+      .get(
+        `https://powerhack-server.vercel.app/api/billing-list?page=${currentPage}`
+      )
       .then((res) => {
         setBillings(res.data.totalBillings);
         setCount(res.data.count);

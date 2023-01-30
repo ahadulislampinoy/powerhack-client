@@ -37,7 +37,6 @@ const AuthProvider = ({ children }) => {
         setEntirePaidTotal(res.data);
       });
   }, [user, paidTotal, paidTotalRefresh, setEntirePaidTotal]);
-  console.log(paidTotalRefresh);
 
   const authInfo = {
     auth,

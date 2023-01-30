@@ -1,9 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import SmallSpinner from "../../Components/SmallSpinner";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const DeleteModal = ({
   deleteModalOpen,
@@ -12,6 +13,7 @@ const DeleteModal = ({
   selectedBilling,
 }) => {
   const [loading, setLoading] = useState(false);
+  const { setPaidTotalRefresh, paidTotalRefresh } = useContext(AuthContext);
 
   const handleDelete = () => {
     setLoading(true);
@@ -32,6 +34,7 @@ const DeleteModal = ({
           },
         });
         setLoading(false);
+        setPaidTotalRefresh(!paidTotalRefresh);
         setDeleteModalOpen(false);
       })
       .catch((err) => {

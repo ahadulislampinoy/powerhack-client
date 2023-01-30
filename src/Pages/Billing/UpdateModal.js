@@ -13,7 +13,8 @@ const UpdateModal = ({
   setSelectedBilling,
   selectedBilling,
 }) => {
-  const { setPaidTotal, paidTotal } = useContext(AuthContext);
+  const { setPaidTotal, paidTotal, setPaidTotalRefresh, paidTotalRefresh } =
+    useContext(AuthContext);
 
   const [loading, setLoading] = useState(false);
   const [previousAmount, setPreviousAmount] = useState(0);
@@ -34,7 +35,8 @@ const UpdateModal = ({
     } else {
       return setPaidTotal(paidTotal);
     }
-  }, [currentAmount, previousAmount, setPaidTotal]);
+  }, [currentAmount, previousAmount, setPaidTotal, paidTotalRefresh]);
+
   const onSubmit = (data) => {
     setLoading(true);
     setPreviousAmount(parseInt(selectedBilling?.amount));
@@ -67,6 +69,7 @@ const UpdateModal = ({
         reset();
         setLoading(false);
         setUpdateModalOpen(false);
+        setPaidTotalRefresh(!paidTotalRefresh);
         setSelectedBilling({});
       })
       .catch((err) => {

@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [paidTotal, setPaidTotal] = useState(0);
   const [entirePaidTotal, setEntirePaidTotal] = useState(0);
+  const [paidTotalRefresh, setPaidTotalRefresh] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("powerhack-token");
@@ -35,7 +36,8 @@ const AuthProvider = ({ children }) => {
       .then((res) => {
         setEntirePaidTotal(res.data);
       });
-  }, [user, paidTotal]);
+  }, [user, paidTotal, paidTotalRefresh, setEntirePaidTotal]);
+  console.log(paidTotalRefresh);
 
   const authInfo = {
     auth,
@@ -45,6 +47,8 @@ const AuthProvider = ({ children }) => {
     paidTotal,
     setPaidTotal,
     entirePaidTotal,
+    setPaidTotalRefresh,
+    paidTotalRefresh,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

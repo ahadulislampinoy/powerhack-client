@@ -47,7 +47,6 @@ const Billing = () => {
       billing.phone.toLowerCase().includes(searchTerm)
     );
   });
-  console.log(billings);
   return (
     <section className="sm:mt-8 min-h-screen bg-gray-900 px-4 sm:px-6 md:px-10">
       <div className="flex w-full justify-center min-h-screen">

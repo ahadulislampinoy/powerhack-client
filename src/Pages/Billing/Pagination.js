@@ -8,7 +8,7 @@ const Pagination = ({ count, setCurrentPage, currentPage }) => {
     pageNumber.push(i);
   }
   return (
-    <div className="flex items-center justify-between rounded-xl px-2 py-4">
+    <div className="flex items-center justify-between rounded-xl px-2 pb-8">
       <div className="flex flex-1 items-center justify-center sm:justify-between">
         <div>
           <p className="hidden sm:block text-base text-gray-50">

@@ -93,7 +93,7 @@ const Billing = () => {
               </button>
             </div>
           </div>
-          <table className="table border-separate space-y-6 overflow-auto lg:overflow-visible min-w-">
+          <table className="table border-separate space-y-6 overflow-auto lg:overflow-visible">
             <thead className="bg-gray-700 text-gray-100">
               <tr className="px-2">
                 <th className="py-4 px-8 text-left">Billing ID</th>
@@ -143,16 +143,6 @@ const Billing = () => {
                         >
                           <TrashIcon className="h-6 w-6 inline-block mx-3" />
                         </button>
-                        {/* <Tooltip
-                  className="bg-gray-500 text-gray-50 font-semibold opacity-100"
-                  anchorId="edit-btn-tooltip"
-                  content="Edit"
-                />
-                <Tooltip
-                  className="bg-gray-500 text-gray-50 font-semibold opacity-100"
-                  anchorId="dlt-btn-tooltip"
-                  content="Delete"
-                /> */}
                       </div>
                     </td>
                   </tr>
